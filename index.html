@@ -22,7 +22,7 @@
       <audio id="bg-music" src="./assets/music.mp3"></audio>
     </a-assets>
 
-    <a-sound id="bg-sound" src="#bg-music" autoplay="true" loop="true" volume="0.6"></a-sound>
+    <a-sound id="bg-sound" src="#bg-music" loop="true" volume="0.6"></a-sound>
 
     <!-- Modern light rig -->
     <a-entity light="type: ambient; intensity: 0.25"></a-entity>
@@ -49,14 +49,24 @@
   <script src="./script.js"></script>
 </body>
 <script>
+  // Wait for the user's first interaction
   window.addEventListener('click', () => {
     const sound = document.querySelector('#bg-sound');
+
+    // Resume AudioContext if it was suspended by the browser
+    const audioContext = AFRAME.scenes[0].audioListener.context;
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+
+    // Play the music
     if (!sound.components.sound.isPlaying) {
       sound.components.sound.playSound();
     }
   }, { once: true });
 </script>
 </html>
+
 
 
 
