@@ -48,30 +48,28 @@
   </a-scene>
 
   <script>
-    function startBackgroundMusic() {
-      const sound = document.querySelector('#bg-sound');
-      const audioContext = AFRAME.scenes[0].audioListener.context;
+  function playSound() {
+    const el = document.querySelector('#bg-sound'); // <- a-sound, not the <audio>
+    const scene = document.querySelector('a-scene');
 
-      // Resume AudioContext if Chrome blocked it
-      if (audioContext.state === 'suspended') {
-        audioContext.resume();
-      }
+    // Make sure the audio context is unlocked by a user gesture
+    const ctx = scene.audioListener.context;
+    if (ctx.state === 'suspended') ctx.resume();
 
-      // Ensure the sound component is initialized before playing
-      if (sound.components.sound) {
-        if (!sound.components.sound.isPlaying) {
-          sound.components.sound.playSound();
-        }
-      } else {
-        // If not ready yet, wait for the sound component to initialize
-        sound.addEventListener('sound-loaded', () => {
-          sound.components.sound.playSound();
-        });
-      }
+    // Wait until the sound component exists / is loaded
+    const start = () => {
+      if (!el.components.sound.isPlaying) el.components.sound.playSound();
+    };
+
+    if (el.components.sound) {
+      start();
+    } else {
+      el.addEventListener('sound-loaded', start, { once: true });
     }
+  }
 
-    // Attach listener: starts music on first user interaction
-    window.addEventListener('click', startBackgroundMusic, { once: true });
+  document.addEventListener('click', playSound, { once: true });
   </script>
 </body>
 </html>
+
