@@ -50,7 +50,16 @@
 
   <script src="./script.js"></script>
 </body>
+<script>
+  window.addEventListener('click', () => {
+    const sound = document.querySelector('#bg-sound');
+    if (!sound.components.sound.isPlaying) {
+      sound.components.sound.playSound();
+    }
+  }, { once: true });
+</script>
 </html>
+
 
 
 
