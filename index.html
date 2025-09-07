@@ -49,21 +49,26 @@
   <script src="./script.js"></script>
 </body>
 <script>
-  // Function to play the sound
- function playSound() {
-    // Get the a-sound element by its ID
-    const sound = document.querySelector("#bg-music");
+  function startBackgroundMusic() {
+    const sound = document.querySelector('#bg-sound');
+    const audioContext = AFRAME.scenes[0].audioListener.context;
 
-    // Check if the sound component is found and play it
-    if (sound) {
+    // Resume AudioContext if it’s blocked by the browser
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+
+    // Play the music only if not already playing
+    if (!sound.components.sound.isPlaying) {
       sound.components.sound.playSound();
     }
   }
 
-  // Add a click event listener to the document
-  document.addEventListener("click", function () {
-    playSound();
-  });
+  // Start background music on the first user click
+  window.addEventListener('click', () => {
+    startBackgroundMusic();
+  }, { once: true });
 </script>
 </html>
+
 
