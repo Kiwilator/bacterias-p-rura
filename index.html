@@ -20,7 +20,11 @@
       <a-asset-item id="mdl-suelo"     src="./assets/suelo_bacterias.glb"></a-asset-item>
       <a-asset-item id="mdl-techo"     src="./assets/techo.glb"></a-asset-item>
       <a-asset-item id="mdl-techo_paredes_2"     src="./assets/paredes_suelo_textura_museo.glb"></a-asset-item>
+      <!-- Museum Music -->
+      <audio id="bg-music" src="./assets/music.mp3"></audio>
     </a-assets>
+
+    <a-sound id="bg-sound" src="#bg-music" autoplay="false" loop="true" volume="0.6"></a-sound>
 
     <!-- Modern light rig -->
     <a-entity light="type: ambient; intensity: 0.25"></a-entity>
@@ -47,6 +51,7 @@
   <script src="./script.js"></script>
 </body>
 </html>
+
 
 
 
