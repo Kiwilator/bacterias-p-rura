@@ -31,3 +31,9 @@ window.addEventListener('keydown', (e) => {
     case 'ArrowRight':p.x += step; break;
   }
 });
+  window.addEventListener('click', () => {
+    const sound = document.querySelector('#bg-sound');
+    if (!sound.components.sound.isPlaying) {
+      sound.components.sound.playSound();
+    }
+  }, { once: true });
