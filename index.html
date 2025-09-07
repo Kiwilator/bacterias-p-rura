@@ -27,10 +27,6 @@
     <a-entity light="type: hemisphere; intensity: 0.7; color: #ffffff; groundColor: #556677"></a-entity>
     <a-entity light="type: directional; intensity: 2.2" position="2 4 3"></a-entity>
 
-    <!-- Ground helper -->
-    <a-entity geometry="primitive: circle; radius: 20" rotation="-90 0 0"
-              material="color: #e9eef5; roughness: 1; metalness: 0"></a-entity>
-
     <!-- Models -->
     <a-entity gltf-model="#mdl-techo" position="0 6 10" scale="1 1 1"></a-entity>
     <a-entity gltf-model="#mdl-cristales" position="0 6 10" scale="1 1 1" animation-mixer></a-entity>
@@ -45,29 +41,24 @@
   </a-scene>
 
   <script>
-  function playSound() {
-    const el = document.querySelector('#bg-sound'); // <- a-sound, not the <audio>
-    const scene = document.querySelector('a-scene');
+  // Function to play the sound
+ function playSound() {
+    // Get the a-sound element by its ID
+    const sound = document.querySelector("#seaSound");
 
-    // Make sure the audio context is unlocked by a user gesture
-    const ctx = scene.audioListener.context;
-    if (ctx.state === 'suspended') ctx.resume();
-
-    // Wait until the sound component exists / is loaded
-    const start = () => {
-      if (!el.components.sound.isPlaying) el.components.sound.playSound();
-    };
-
-    if (el.components.sound) {
-      start();
-    } else {
-      el.addEventListener('sound-loaded', start, { once: true });
+    // Check if the sound component is found and play it
+    if (sound) {
+      sound.components.sound.playSound();
     }
   }
 
-  document.addEventListener('click', playSound, { once: true });
+  // Add a click event listener to the document
+  document.addEventListener("click", function () {
+    playSound();
+  });
   </script>
 </body>
 </html>
+
 
 
